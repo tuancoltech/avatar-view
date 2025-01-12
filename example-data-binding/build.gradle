@@ -3,12 +3,13 @@ apply plugin: 'com.android.application'
 apply from: "$rootDir/versions.gradle"
 
 android {
-    compileSdkVersion 25
+    namespace 'agency.tango.android.avatarview.example'
+    compileSdkVersion 34
     buildToolsVersion "25.0.0"
     defaultConfig {
         applicationId "agency.tango.avatarview"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -25,11 +26,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile project(path: ':avatar-view')
-    compile project(path: ':avatar-view-bindings')
-    compile project(path: ':avatar-view-picasso')
+    implementation project(path: ':avatar-view')
+    implementation project(path: ':avatar-view-bindings')
+    implementation project(path: ':avatar-view-picasso')
 
-    compile "com.android.support:appcompat-v7:${project.androidSupport}"
+    implementation "com.android.support:appcompat-v7:${project.androidSupport}"
 }

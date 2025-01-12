@@ -10,9 +10,10 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import androidx.annotation.RequiresApi;
 
 import agency.tango.android.avatarview.AvatarPlaceholder;
 import agency.tango.android.avatarview.R;
