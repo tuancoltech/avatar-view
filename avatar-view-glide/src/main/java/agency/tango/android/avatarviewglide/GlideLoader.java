@@ -1,6 +1,6 @@
 package agency.tango.android.avatarviewglide;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 
@@ -23,7 +23,7 @@ public class GlideLoader extends ImageLoaderBase {
     public void loadImage(@NonNull AvatarView avatarView, @NonNull AvatarPlaceholder avatarPlaceholder, @NonNull String avatarUrl) {
         Glide.with(avatarView.getContext())
                 .load(avatarUrl)
-                .crossFade()
+//                .crossFade()
                 .placeholder(avatarPlaceholder)
                 .fitCenter()
                 .into(avatarView);

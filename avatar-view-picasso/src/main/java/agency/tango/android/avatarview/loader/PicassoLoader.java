@@ -1,6 +1,6 @@
 package agency.tango.android.avatarview.loader;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.squareup.picasso.Picasso;
 

@@ -1,14 +1,16 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+//apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
 apply from: "$rootDir/versions.gradle"
 android {
-    compileSdkVersion 25
+    namespace 'agency.tango.android.avatarviewpicasso'
+    compileSdkVersion 34
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -22,20 +24,27 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    publishing {
+        singleVariant("debug") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    compile 'com.squareup.picasso:picasso:2.5.2'
-    compile project(path: ':avatar-view')
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation project(path: ':avatar-view')
+    implementation "androidx.annotation:annotation:1.9.1"
 }
 
-publish {
-    userOrg = 'tangoagency'
-    groupId = 'agency.tango.android'
-    artifactId = 'avatar-view-picasso'
-    publishVersion = '0.0.2'
-    desc = ''
-    website = 'https://github.com/TangoAgency/avatar-view'
-}
+//publish {
+//    userOrg = 'tangoagency'
+//    groupId = 'agency.tango.android'
+//    artifactId = 'avatar-view-picasso'
+//    publishVersion = '0.0.2'
+//    desc = ''
+//    website = 'https://github.com/TangoAgency/avatar-view'
+//}

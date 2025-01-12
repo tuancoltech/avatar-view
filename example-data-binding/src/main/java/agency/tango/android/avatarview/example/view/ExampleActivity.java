@@ -1,10 +1,11 @@
 package agency.tango.android.avatarview.example.view;
 
-import android.databinding.DataBindingComponent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+
+import androidx.databinding.DataBindingComponent;
+import androidx.databinding.DataBindingUtil;
 
 import agency.tango.android.avatarview.example.R;
 import agency.tango.android.avatarview.example.databinding.ExampleActivityBinding;

@@ -1,14 +1,15 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'maven-publish'
 
 apply from: "$rootDir/versions.gradle"
 android {
-    compileSdkVersion 25
+    namespace 'agency.tango.android.avatarviewglide'
+    compileSdk 34
     buildToolsVersion "25.0.0"
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 21
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
     }
@@ -22,22 +23,59 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    publishing {
+        singleVariant("debug") {
+            withSourcesJar()
+        }
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    provided "com.android.support:appcompat-v7:${project.androidSupport}"
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile project(path: ':avatar-view')
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation "androidx.annotation:annotation:1.9.1"
+    implementation project(path: ':avatar-view')
 }
 
 
-publish {
-    userOrg = 'tangoagency'
-    groupId = 'agency.tango.android'
-    artifactId = 'avatar-view-glide'
-    publishVersion = '0.0.2'
-    desc = ''
-    website = 'https://github.com/TangoAgency/avatar-view'
+def libVersion = '0.0.2'
+
+def localPropertiesFile = project.rootProject.file("local.properties")
+def githubUser = null
+def githubToken = null
+
+if (localPropertiesFile.exists()) {
+    def localProperties = new Properties()
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+    githubUser = localProperties.getProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
+    githubToken = localProperties.getProperty("gpr.token") ?: System.getenv("GITHUB_TOKEN")
+} else {
+    githubUser = System.getenv("GITHUB_ACTOR")
+    githubToken = System.getenv("GITHUB_TOKEN")
+}
+
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = "agency.tango.android"
+            artifactId = "avatar-view-glide"
+            version = libVersion
+            afterEvaluate {
+                from(components["debug"])
+            }
+        }
+    }
+    repositories {
+        maven {
+            name = "GithubPackages"
+            url = uri("https://maven.pkg.github.com/tuancoltech/avatar-view")
+            credentials {
+                username = githubUser
+                password = githubToken
+            }
+        }
+    }
 }
